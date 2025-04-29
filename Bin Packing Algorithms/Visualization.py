@@ -3,7 +3,7 @@ import matplotlib as mpl
 import math
 import numpy as np
 from configuration_Matplotlib import *
-from Item import create_items_bulk
+from Class_Items import create_items_bulk
 from BestFit import bin_packing_best_fit_var_capa
 from FirstFit import bin_packing_first_fit_var_capa
 from NextFit import bin_packing_next_fit_var_capa
@@ -255,13 +255,13 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False):
 
             # Draw a cross across all bins indicating that bin-packing was unsuccessful for a given approach
             line = plt.Line2D([min_x, max_x], [min_y, max_y], transform=fig.transFigure,
-                            color="red", linewidth=10, alpha=FAILURE_MARKING_TRANSPARENCY)
+                            color="red", linewidth=5, alpha=FAILURE_MARKING_TRANSPARENCY)
             outline = plt.Line2D([min_x, max_x], [min_y, max_y], transform=fig.transFigure,
                                 color="black", linewidth=12, alpha=FAILURE_MARKING_TRANSPARENCY)
             fig.lines.extend([outline, line])
 
             line = plt.Line2D([min_x, max_x], [max_y, min_y], transform=fig.transFigure,
-                            color="red", linewidth=10, alpha=FAILURE_MARKING_TRANSPARENCY)
+                            color="red", linewidth=5, alpha=FAILURE_MARKING_TRANSPARENCY)
             outline = plt.Line2D([min_x, max_x], [max_y, min_y], transform=fig.transFigure,
                                 color="black", linewidth=12, alpha=FAILURE_MARKING_TRANSPARENCY)
             fig.lines.extend([outline, line])

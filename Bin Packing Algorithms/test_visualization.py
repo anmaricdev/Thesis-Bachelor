@@ -1,5 +1,5 @@
 from Visualization import visualize_bin_packing
-from Item import create_items_bulk
+from Class_Items import create_items_bulk
 from HelperFuncRand import get_random_capacities_and_items
 
 AMOUNT_ITERATIONS = 2
