@@ -2,6 +2,7 @@ class Item:
     def __init__(self, size):
         self.size = size
         self._color = None
+        self.is_packed_after_failure = False
 
     def __repr__(self):
         return f"Item({self.size})"
@@ -38,4 +39,3 @@ def create_items_bulk(*items):
 
 def fixed_capacity(capacity, amount_bins):
     return [capacity] * amount_bins
-

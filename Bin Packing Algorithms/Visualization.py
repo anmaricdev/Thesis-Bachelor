@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import math
 import numpy as np
+import os
 from configuration_Matplotlib import *
 from Class_Items import create_items_bulk
 from BinPackingAlgorithms import bin_packing_best_fit_var_capa, bin_packing_first_fit_var_capa, bin_packing_next_fit_var_capa, bin_packing_worst_fit_var_capa
@@ -18,8 +19,8 @@ def determine_start_position_and_direction(amount_rows, amount_columns, amount_i
     return next_cell, horizontal_direction
 
 
-def draw_separation_vertical_line(ax, x, y, height=1, color=GRID_COLOR):
-    ax.vlines([x], y, y+height, colors=color, linestyles="dotted")
+def draw_separation_vertical_line(ax, x, y, height=1, linestyle="dotted", color=GRID_COLOR):
+    ax.vlines([x], y, y+height, colors=color, linestyles=linestyle)
 
 
 def draw_grid_around_cell(ax, x, y, width=1, height=1, color=GRID_COLOR):
@@ -70,7 +71,7 @@ def get_next_position(next_cell, horizontal_direction, max_x, unit=1):
     return next_cell, horizontal_direction
 
 
-def visualize_container(label, capacity, items, ax, max_bin_count, is_leftover_bin, visualize_in_2d):
+def visualize_container(label, capacity, items, ax, include_packed_after_failure_padding, is_leftover_bin, visualize_in_2d):
     if not visualize_in_2d and ALLOW_SCALE_UNITS:
         unit_scale = 1 if capacity < 10 else 1 / (capacity // 10)
     else:
@@ -86,8 +87,11 @@ def visualize_container(label, capacity, items, ax, max_bin_count, is_leftover_b
         capacity / amount_columns)
     # Determine size of figure and define grid boundaries
     grid_height_to_width_ratio = min(amount_rows/amount_columns, 1)
+    y_max_additional_padding = 0
+    if not is_leftover_bin and include_packed_after_failure_padding and not visualize_in_2d:
+        y_max_additional_padding = PACKED_AFTER_FAILURE_MARKER_SIZE - 1
     ax.axis([0 - FIGURE_MARGIN, amount_columns + FIGURE_MARGIN, 0 -
-            FIGURE_MARGIN, amount_rows + FIGURE_MARGIN])  # xmin, xmax, ymin, ymax
+            FIGURE_MARGIN, amount_rows + FIGURE_MARGIN + y_max_additional_padding])  # xmin, xmax, ymin, ymax
     ax.apply_aspect()
     # Make sure that X and Y axes are scaled equally
     ax.set_aspect("equal", adjustable="box")
@@ -107,8 +111,16 @@ def visualize_container(label, capacity, items, ax, max_bin_count, is_leftover_b
     # to make sure, that the empty space will be in the top right corner
     next_cell, horizontal_direction = determine_start_position_and_direction(
         amount_rows, amount_columns, len(items))
+    # Track whether the item belongs to those packed after failure or not (if there was a failure)
+    already_packed_after_failure = False
     # Iterate over all items and place them
     for item in items:
+        if not is_leftover_bin and not visualize_in_2d:
+            if not already_packed_after_failure and item.is_packed_after_failure:
+                already_packed_after_failure = True
+                draw_separation_vertical_line(ax, *next_cell, height=PACKED_AFTER_FAILURE_MARKER_SIZE, linestyle="solid")
+                packed_after_failure_text_x, packed_after_failure_text_y = next_cell
+                ax.text(packed_after_failure_text_x + PACKED_AFTER_FAILURE_TEXT_PADDING, packed_after_failure_text_y + 1 + PACKED_AFTER_FAILURE_TEXT_PADDING, AFTER_FAILURE_TEXT, ha="left", va="bottom", fontsize=12)
         # Draw a separating vertical line to indicate two separate items.
         # Depending on color gradient, adjacent items could have similar colors.
         # This makes them more distinguishable.
@@ -196,17 +208,7 @@ def create_overview(approach, could_not_place_size, amount_bins, ax):
     overview_text += "\n" + f"bins used: {amount_bins}"
     if could_not_place_size > 0:
         overview_text += "\n" + f"leftover: {could_not_place_size}"
-    
-    # Add check mark or X mark above the text
-    if could_not_place_size == 0:
-        # Green check mark
-        ax.text(0.5, 0.7, "✓", ha="center", va="center", fontsize=32, color="green")
-    else:
-        # Red X mark
-        ax.text(0.5, 0.7, "✗", ha="center", va="center", fontsize=32, color="red")
-    
-    # Add the overview text below the mark
-    ax.text(0.5, 0.4, overview_text, ha="center", va="center", fontsize=18)
+    ax.text(0.5, 0.5, overview_text, ha="center", va="center", fontsize=18)
 
 
 def visualize_bin_packing(capacities, items, visualize_in_2d=False):
@@ -225,13 +227,18 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False):
         results.append(bin_packing(
             capacities, items, approach, fixed_size))
     max_bin_count = 0
-    for is_possible, used_bins in results:
+    for is_possible, used_bins, bins_packed_after_failure in results:
         bin_count = len(used_bins) + (1 if not is_possible else 0)
         if bin_count > max_bin_count:
             max_bin_count = bin_count
     fig, axs = plt.subplots(
-        len(approaches), max_bin_count + 1, constrained_layout=True, sharey="row")
-    for i, (is_possible, used_bins) in enumerate(results):
+        len(approaches), max_bin_count + 1, constrained_layout=True)
+    for i, (is_possible, used_bins, bins_packed_after_failure) in enumerate(results):
+        include_packed_after_failure_padding = False
+        for bin_packed_after_failure in bins_packed_after_failure:
+            for item in bin_packed_after_failure:
+                item.is_packed_after_failure = True
+                include_packed_after_failure_padding = True
         approach = approaches[i]
         axs_row = axs[i]
         for ax in axs_row:
@@ -247,10 +254,10 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False):
         for i, used_bin in enumerate(used_bins):
             ax = axs_row[1:][i]
             visualize_container(
-                f"Bin {i+1}", capacities[i], used_bin, ax, max_bin_count, is_leftover_bin=False, visualize_in_2d=visualize_in_2d)
+                f"Bin {i+1}", capacities[i], used_bin, ax, include_packed_after_failure_padding, is_leftover_bin=False, visualize_in_2d=visualize_in_2d)
         if not is_possible:
             visualize_container(f"Leftover", sum(map(lambda item: item.size, leftover_items)),
-                                leftover_items, axs_row[-1], max_bin_count, is_leftover_bin=True, visualize_in_2d=visualize_in_2d)
+                                leftover_items, axs_row[-1], include_packed_after_failure_padding, is_leftover_bin=True, visualize_in_2d=visualize_in_2d)
         # Draw call required to get accurate bounding box values
         fig.canvas.draw()
         # Only look at bins, which exist (i.e., leftover bin does not exist if bin-packing is possible for a given approach.)
