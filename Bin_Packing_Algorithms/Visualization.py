@@ -3,9 +3,9 @@ import matplotlib as mpl
 import math
 import numpy as np
 import os
-from configuration_Matplotlib import *
-from Class_Items import create_items_bulk
-from BinPackingAlgorithms import bin_packing_best_fit_var_capa, bin_packing_first_fit_var_capa, bin_packing_next_fit_var_capa, bin_packing_worst_fit_var_capa
+from .configuration_Matplotlib import *
+from .Class_Items import create_items_bulk
+from .BinPackingAlgorithms import bin_packing_best_fit_var_capa, bin_packing_first_fit_var_capa, bin_packing_next_fit_var_capa, bin_packing_worst_fit_var_capa
 
 def determine_start_position_and_direction(amount_rows, amount_columns, amount_items):
     start_from_left = amount_rows % 2 == 1 or amount_rows * \
@@ -150,8 +150,11 @@ def visualize_container(label, capacity, items, ax, include_packed_after_failure
     ax.set_yticks([])
     amount_of_ticks = math.floor(amount_columns * unit_scale)+1
     ax.set_xticks(range(amount_of_ticks))
+    # Adjust tick label size and rotation
     ax.set_xticklabels(
-        list(map(lambda xtick: round(xtick / unit_scale), ax.get_xticks())))
+        list(map(lambda xtick: round(xtick / unit_scale), ax.get_xticks())),
+        fontsize=10,
+    )
     for spine in ax.spines.values():
         spine.set_visible(False)
     ax.tick_params(left=False, bottom=True)
@@ -168,25 +171,13 @@ def visualize_container(label, capacity, items, ax, include_packed_after_failure
 
 def bin_packing(bin_capacities, elements, approach, fixed_size=True):
     if approach == "BEST":
-        if fixed_size:
-            return bin_packing_best_fit_fixed_capa(bin_capacities[0], len(bin_capacities), elements)
-        else:
-            return bin_packing_best_fit_var_capa(bin_capacities, elements)
+        return bin_packing_best_fit_var_capa(bin_capacities, elements)
     elif approach == "FIRST":
-        if fixed_size:
-            return bin_packing_first_fit_fixed_capa(bin_capacities[0], len(bin_capacities), elements)
-        else:
-            return bin_packing_first_fit_var_capa(bin_capacities, elements)
+        return bin_packing_first_fit_var_capa(bin_capacities, elements)
     elif approach == "NEXT":
-        if fixed_size:
-            return bin_packing_next_fit_fixed_capa(bin_capacities[0], len(bin_capacities), elements)
-        else:
-            return bin_packing_next_fit_var_capa(bin_capacities, elements)
+        return bin_packing_next_fit_var_capa(bin_capacities, elements)
     elif approach == "WORST":
-        if fixed_size:
-            return bin_packing_worst_fit_fixed_capa(bin_capacities[0], len(bin_capacities), elements)
-        else:
-            return bin_packing_worst_fit_var_capa(bin_capacities, elements)
+        return bin_packing_worst_fit_var_capa(bin_capacities, elements)
     else:
         print(r'Please select "BEST", "FIRST", "NEXT", or "WORST" as approach.')
         return None
@@ -202,13 +193,23 @@ def create_overview(approach, could_not_place_size, amount_bins, ax):
         approach_text = "Next-fit bin packing"
     elif approach == "WORST":
         approach_text = "Worst-fit bin packing"
-    overview_text = approach_text
-    overview_text += "\n" + \
-        ("(Successful)" if could_not_place_size == 0 else "(Not successful)")
-    overview_text += "\n" + f"bins used: {amount_bins}"
+    
+    # Create the text with colored success status
+    success_status = "Successful" if could_not_place_size == 0 else "Not successful"
+    text_color = "green" if could_not_place_size == 0 else "red"
+    
+    # First line: approach
+    ax.text(0.5, 0.6, approach_text, ha="center", va="center", fontsize=18)
+    
+    # Second line: success status in color
+    ax.text(0.5, 0.5, f"({success_status})", ha="center", va="center", fontsize=18, color=text_color)
+    
+    # Third line: bins used
+    ax.text(0.5, 0.4, f"bins used: {amount_bins}", ha="center", va="center", fontsize=18)
+    
+    # Fourth line: leftover (if any)
     if could_not_place_size > 0:
-        overview_text += "\n" + f"leftover: {could_not_place_size}"
-    ax.text(0.5, 0.5, overview_text, ha="center", va="center", fontsize=18)
+        ax.text(0.5, 0.3, f"leftover: {could_not_place_size}", ha="center", va="center", fontsize=18)
 
 
 def visualize_bin_packing(capacities, items, visualize_in_2d=False):
@@ -231,8 +232,15 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False):
         bin_count = len(used_bins) + (1 if not is_possible else 0)
         if bin_count > max_bin_count:
             max_bin_count = bin_count
-    fig, axs = plt.subplots(
-        len(approaches), max_bin_count + 1, constrained_layout=True)
+    
+    # Create figure and subplots
+    fig = plt.gcf()
+    fig.set_size_inches(25, 25)
+    fig.set_constrained_layout(True)
+    axs = fig.subplots(len(approaches), max_bin_count + 1, height_ratios=[1.2] * len(approaches))
+    if len(approaches) == 1:
+        axs = [axs]  # Make it iterable if there's only one approach
+
     for i, (is_possible, used_bins, bins_packed_after_failure) in enumerate(results):
         include_packed_after_failure_padding = False
         for bin_packed_after_failure in bins_packed_after_failure:
@@ -313,4 +321,5 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False):
             outline = plt.Line2D([min_x, max_x], [max_y, min_y], transform=fig.transFigure,
                                  color="black", linewidth=12, alpha=FAILURE_MARKING_TRANSPARENCY)
             fig.lines.extend([outline, line])
-    plt.show()
+    
+    return fig

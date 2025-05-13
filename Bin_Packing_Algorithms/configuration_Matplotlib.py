@@ -9,7 +9,7 @@ BIN_PACKING_COLORMAP_NAME = "gist_rainbow"
 # If enabled, one cell will not always correspond to one unit, but scale according to size.
 # For example, by having each cell represent two units.
 ALLOW_SCALE_UNITS = True
-BASE_GRID_WIDTH = 15
+BASE_GRID_WIDTH = 20
 # When an approach fails to pack all the items in the bin, 
 # a slightly transparent cross is displayed by default.
 # Here one can configure how transparent the cross should be (0=fully transparent, 1=fully opaque)
