@@ -32,19 +32,22 @@ def generate_solution_regex(answer: str) -> str:
     return f"{solution}"
 
 def get_bin_packing_sequence(question_number, num_calls, approach: str):
-    ARRAY_LENGTH = 7
     bin_capacities_list = []
     items_list = []
     tree_image_file_names = []
     packing_results = []
     images_information = []
     
+    # Create the imgs directory if it doesn't exist
+    imgs_folder_path = os.path.join(os.path.join(folder_path, get_folder_name([approach])), "imgs")
+    os.makedirs(imgs_folder_path, exist_ok=True)
+    
     for i in range(num_calls):
         # Generate random parameters for bin packing
         min_bin_count = 3
         max_bin_count = 5
         min_bin_capacity = 8
-        max_bin_capacity = 15  # Reduced from 20 to 15
+        max_bin_capacity = 15  # Capped at 15
         min_item_count = 8
         max_item_count = 12
         min_item_size = 1
@@ -60,19 +63,44 @@ def get_bin_packing_sequence(question_number, num_calls, approach: str):
             variable_size
         )
 
-        # Create figure and generate visualization
-        fig = plt.figure(figsize=(15, 15))
-        fig = visualize_bin_packing(bin_capacities, items, visualize_in_2d=False)
+        # Create figure with minimal size
+        fig = plt.figure(figsize=(12, 4))  # Reduced figure size
+        
+        # Apply the correct algorithm based on approach
+        if approach == "BEST":
+            result = bin_packing_best_fit_var_capa(bin_capacities.copy(), items.copy())
+        elif approach == "FIRST":
+            result = bin_packing_first_fit_var_capa(bin_capacities.copy(), items.copy())
+        elif approach == "NEXT":
+            result = bin_packing_next_fit_var_capa(bin_capacities.copy(), items.copy())
+        elif approach == "WORST":
+            result = bin_packing_worst_fit_var_capa(bin_capacities.copy(), items.copy())
+        else:
+            raise ValueError(f"Unknown approach: {approach}")
+            
+        # Use the result to visualize bin packing
+        fig = visualize_bin_packing(bin_capacities, items, visualize_in_2d=False, algorithms=[approach])
         
         # Generate a sequential ID for the image
         image_id = f"{question_number:02d}_{i+1:03d}"  # Format: question_number_sequence (e.g., 02_001)
         tree_image_file_name = f"bin_packing_{image_id}.png"
         timestamp = datetime.now().isoformat()
         
-        # Save the figure to the imgs subfolder
+        # Save the figure to the imgs subfolder with tight bounding box
         save_path = os.path.join(imgs_folder_path, tree_image_file_name)
         print(f"Saving image to: {save_path}")  # Debug print
-        fig.savefig(save_path, format='png', bbox_inches='tight', dpi=300)
+        
+        # Adjust figure to remove excess white space
+        plt.subplots_adjust(left=0.05, right=0.95, top=0.95, bottom=0.05)  # Minimize margins
+        fig.tight_layout(pad=0)  # No padding
+        
+        # Save with minimal padding
+        fig.savefig(save_path, 
+                   format='png',
+                   bbox_inches='tight',
+                   pad_inches=0,
+                   dpi=300,
+                   transparent=False)
         
         # Read the saved file and convert to base64
         with open(save_path, 'rb') as f:
@@ -117,39 +145,80 @@ def generate_task_for_worst_fit(question_number, num_calls):
 folder_path = os.path.join(parent_dir, "Generated Pictures")
 # Create a timestamped folder for this run
 timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-run_folder = os.path.join(folder_path, f"run_{timestamp}")
-imgs_folder_path = os.path.join(run_folder, "imgs")
-os.makedirs(folder_path, exist_ok=True)
-os.makedirs(run_folder, exist_ok=True)
-os.makedirs(imgs_folder_path, exist_ok=True)
 
-clear_variable_declarations(folder_path)
+def get_folder_name(algorithms):
+    """Generate a folder name based on the selected algorithms."""
+    if not algorithms:
+        return f"ALL_Algorithms_{timestamp}"
+    elif len(algorithms) == 1:
+        return f"{algorithms[0]}_{timestamp}"
+    else:
+        return f"{'_AND_'.join(algorithms)}_{timestamp}"
 
-# Clean up existing images in the imgs folder BEFORE generating new ones
-for image_file in glob.glob(os.path.join(imgs_folder_path, "bin_packing_*.png")):
-    os.remove(image_file)
+def generate_exercises(algorithms=None, num_calls=2):
+    """
+    Generate exercises for specified algorithms.
+    
+    Args:
+        algorithms: List of algorithms to use (e.g., ["BEST", "FIRST"]). If None, uses all algorithms.
+        num_calls: Number of exercises to generate per algorithm
+    """
+    # Create folder with appropriate name
+    run_folder = os.path.join(folder_path, get_folder_name(algorithms))
+    imgs_folder_path = os.path.join(run_folder, "imgs")
+    os.makedirs(folder_path, exist_ok=True)
+    os.makedirs(run_folder, exist_ok=True)
+    os.makedirs(imgs_folder_path, exist_ok=True)
 
-num_calls = 2 # 2 exercises per algorithm (8 total)
-all_images = []
+    clear_variable_declarations(folder_path)
 
-question_number = 2
-result, images = generate_task_for_best_fit(question_number, num_calls)
-format_to_xml(run_folder, result, question_number, num_calls, [("image_ids_start", "Put image start id here"), ("question_2_image_id", f"[var=image_ids_start] + {str(num_calls*0)} + [var=index_question_2]")])
-all_images.extend(images)
+    # Clean up existing images in the imgs folder BEFORE generating new ones
+    for image_file in glob.glob(os.path.join(imgs_folder_path, "bin_packing_*.png")):
+        os.remove(image_file)
 
-question_number = 3
-result, images = generate_task_for_first_fit(question_number, num_calls)
-format_to_xml(run_folder, result, question_number, num_calls, [("question_3_image_id", f"[var=image_ids_start] + {str(num_calls*1)} + [var=index_question_3]")])
-all_images.extend(images)
+    # Dictionary mapping algorithms to their question numbers
+    algorithm_questions = {
+        "BEST": 2,
+        "FIRST": 3,
+        "NEXT": 4,
+        "WORST": 5
+    }
 
-question_number = 4
-result, images = generate_task_for_next_fit(question_number, num_calls)
-format_to_xml(run_folder, result, question_number, num_calls, [("question_4_image_id", f"[var=image_ids_start] + {str(num_calls*2)} + [var=index_question_4]")])
-all_images.extend(images)
+    # If no algorithms specified, use all
+    if not algorithms:
+        algorithms = list(algorithm_questions.keys())
 
-question_number = 5
-result, images = generate_task_for_worst_fit(question_number, num_calls)
-format_to_xml(run_folder, result, question_number, num_calls, [("question_5_image_id", f"[var=image_ids_start] + {str(num_calls*3)} + [var=index_question_5]")])
-all_images.extend(images)
+    all_images = []
+    for algorithm in algorithms:
+        question_number = algorithm_questions[algorithm]
+        result, images = generate_task_for_algorithm(algorithm, question_number, num_calls)
+        format_to_xml(
+            run_folder, 
+            result, 
+            question_number, 
+            num_calls, 
+            [("question_{}_image_id".format(question_number), 
+              f"[var=image_ids_start] + {str(num_calls*list(algorithm_questions.keys()).index(algorithm))} + [var=index_question_{question_number}]")]
+        )
+        all_images.extend(images)
 
-# No need to save images again as they were already saved during generation
+def generate_task_for_algorithm(algorithm, question_number, num_calls):
+    """Generate tasks for a specific algorithm."""
+    if algorithm == "BEST":
+        return generate_task_for_best_fit(question_number, num_calls)
+    elif algorithm == "FIRST":
+        return generate_task_for_first_fit(question_number, num_calls)
+    elif algorithm == "NEXT":
+        return generate_task_for_next_fit(question_number, num_calls)
+    elif algorithm == "WORST":
+        return generate_task_for_worst_fit(question_number, num_calls)
+    else:
+        raise ValueError(f"Unknown algorithm: {algorithm}")
+
+# Example usage:
+if __name__ == "__main__":
+    # Generate exercises for specific algorithms
+    # Examples:
+    generate_exercises(["BEST"])  # Only Best Fit
+    # generate_exercises(["FIRST", "WORST"])  # First Fit and Worst Fit
+    # generate_exercises(["WORST"])  # Current example: only Worst Fit

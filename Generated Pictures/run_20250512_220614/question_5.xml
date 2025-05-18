@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<question number="5"><variable name="bin_capacities_5" single="bin_capacity_5">[12, 9, 12, 15]
-[10, 13, 15, 10]</variable><variable name="items_5" single="item_5">[6, 2, 6, 3, 2, 5, 1, 7, 1]
-[5, 5, 3, 8, 4, 7, 6, 3, 7, 4]</variable><variable name="packing_results_5" single="packing_result_5">Approach: WORST, Bins: 4, Items: 9
-Approach: WORST, Bins: 4, Items: 10</variable><variable name="packing_results_regex_5" single="packing_result_regex_5">\[*\s*Approach:WORST\s*,\s*Bins:4\s*,\s*Items:9\s*\]*
-\[*\s*Approach:WORST\s*,\s*Bins:4\s*,\s*Items:10\s*\]*</variable><image_id name="question_5_image_id">[var=image_ids_start] + 6 + [var=index_question_5]</image_id></question>
