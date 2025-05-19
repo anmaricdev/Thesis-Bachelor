@@ -8,6 +8,7 @@ import base64
 import glob
 import os
 import sys
+import shutil
 
 # Add the parent directory to the Python path
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -31,17 +32,36 @@ def generate_solution_regex(answer: str) -> str:
     solution = fr"\[*\s*{solution}\s*\]*"
     return f"{solution}"
 
+def get_algorithm_folder_name(algorithm):
+    mapping = {
+        "BEST": "BEST FIT",
+        "FIRST": "FIRST FIT",
+        "NEXT": "NEXT FIT",
+        "WORST": "WORST FIT"
+    }
+    return mapping.get(algorithm, algorithm.upper())
+
+def get_algorithm_file_prefix(algorithm):
+    mapping = {
+        "BEST": "BEST_FIT",
+        "FIRST": "FIRST_FIT",
+        "NEXT": "NEXT_FIT",
+        "WORST": "WORST_FIT"
+    }
+    return mapping.get(algorithm, algorithm.upper())
+
 def get_bin_packing_sequence(question_number, num_calls, approach: str):
+    print(f"Generating bin packing sequence for approach: {approach}")  # Debug print
     bin_capacities_list = []
     items_list = []
     tree_image_file_names = []
     packing_results = []
     images_information = []
-    
-    # Create the imgs directory if it doesn't exist
-    imgs_folder_path = os.path.join(os.path.join(folder_path, get_folder_name([approach])), "imgs")
+
+    # All images go directly into the base folder_path (no subfolders)
+    imgs_folder_path = folder_path
     os.makedirs(imgs_folder_path, exist_ok=True)
-    
+
     for i in range(num_calls):
         # Generate random parameters for bin packing
         min_bin_count = 3
@@ -66,7 +86,7 @@ def get_bin_packing_sequence(question_number, num_calls, approach: str):
         # Create figure with minimal size
         fig = plt.figure(figsize=(12, 4))  # Reduced figure size
         
-        # Apply the correct algorithm based on approach
+        # Apply the correct algorithm based on approach (always use the correct function from BinPackingAlgorithms.py)
         if approach == "BEST":
             result = bin_packing_best_fit_var_capa(bin_capacities.copy(), items.copy())
         elif approach == "FIRST":
@@ -81,12 +101,12 @@ def get_bin_packing_sequence(question_number, num_calls, approach: str):
         # Use the result to visualize bin packing
         fig = visualize_bin_packing(bin_capacities, items, visualize_in_2d=False, algorithms=[approach])
         
-        # Generate a sequential ID for the image
-        image_id = f"{question_number:02d}_{i+1:03d}"  # Format: question_number_sequence (e.g., 02_001)
-        tree_image_file_name = f"bin_packing_{image_id}.png"
+        # Generate a unique filename using only the timestamp (to microseconds)
+        timestamp_str = datetime.now().strftime("%Y%m%d_%H%M%S_%f")
+        tree_image_file_name = f"{timestamp_str}.png"
         timestamp = datetime.now().isoformat()
         
-        # Save the figure to the imgs subfolder with tight bounding box
+        # Save the figure to the base folder with tight bounding box
         save_path = os.path.join(imgs_folder_path, tree_image_file_name)
         print(f"Saving image to: {save_path}")  # Debug print
         
@@ -143,17 +163,6 @@ def generate_task_for_worst_fit(question_number, num_calls):
 
 # Create the output directories if they don't exist
 folder_path = os.path.join(parent_dir, "Generated Pictures")
-# Create a timestamped folder for this run
-timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-
-def get_folder_name(algorithms):
-    """Generate a folder name based on the selected algorithms."""
-    if not algorithms:
-        return f"ALL_Algorithms_{timestamp}"
-    elif len(algorithms) == 1:
-        return f"{algorithms[0]}_{timestamp}"
-    else:
-        return f"{'_AND_'.join(algorithms)}_{timestamp}"
 
 def generate_exercises(algorithms=None, num_calls=2):
     """
@@ -163,18 +172,10 @@ def generate_exercises(algorithms=None, num_calls=2):
         algorithms: List of algorithms to use (e.g., ["BEST", "FIRST"]). If None, uses all algorithms.
         num_calls: Number of exercises to generate per algorithm
     """
-    # Create folder with appropriate name
-    run_folder = os.path.join(folder_path, get_folder_name(algorithms))
-    imgs_folder_path = os.path.join(run_folder, "imgs")
+    # Only create the base folder_path
     os.makedirs(folder_path, exist_ok=True)
-    os.makedirs(run_folder, exist_ok=True)
-    os.makedirs(imgs_folder_path, exist_ok=True)
 
     clear_variable_declarations(folder_path)
-
-    # Clean up existing images in the imgs folder BEFORE generating new ones
-    for image_file in glob.glob(os.path.join(imgs_folder_path, "bin_packing_*.png")):
-        os.remove(image_file)
 
     # Dictionary mapping algorithms to their question numbers
     algorithm_questions = {
@@ -190,10 +191,11 @@ def generate_exercises(algorithms=None, num_calls=2):
 
     all_images = []
     for algorithm in algorithms:
+        print(f"Processing algorithm: {algorithm}")  # Debug print
         question_number = algorithm_questions[algorithm]
         result, images = generate_task_for_algorithm(algorithm, question_number, num_calls)
         format_to_xml(
-            run_folder, 
+            folder_path,  # Save XML in the base folder
             result, 
             question_number, 
             num_calls, 
@@ -219,6 +221,5 @@ def generate_task_for_algorithm(algorithm, question_number, num_calls):
 if __name__ == "__main__":
     # Generate exercises for specific algorithms
     # Examples:
-    generate_exercises(["BEST"])  # Only Best Fit
-    # generate_exercises(["FIRST", "WORST"])  # First Fit and Worst Fit
-    # generate_exercises(["WORST"])  # Current example: only Worst Fit
+    # generate_exercises(["BEST"])  # Only Best Fit
+    generate_exercises(["NEXT"])  # Current example: only Worst Fit

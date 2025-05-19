@@ -287,9 +287,9 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False, algorithms=N
         max_x = max([r[0] + r[2] for r in bin_rects])
         min_y = min([r[1] for r in bin_rects])
         max_y = max([r[1] + r[3] for r in bin_rects])
-        # Extend the cross a bit beyond the bins (5% margin)
-        x_margin = 0.05 * (max_x - min_x)
-        y_margin = 0.05 * (max_y - min_y)
+        # Extend the cross a bit beyond the bins (2% margin, was 5%)
+        x_margin = 0.02 * (max_x - min_x)
+        y_margin = 0.02 * (max_y - min_y)
         min_xe = min_x - x_margin
         max_xe = max_x + x_margin
         min_ye = min_y - y_margin
@@ -317,13 +317,27 @@ def _draw_bin(ax, x, y, width, height, capacity, items, label):
     if len(items) > 0:
         total_size = sum(item.size for item in items)
         curr_x = x
-        for item in items:
+        after_failure_drawn = False
+        for idx, item in enumerate(items):
             item_width = width * (item.size / capacity)
+            # Draw separation line and label if this is the first 'after failure' item
+            if not after_failure_drawn and getattr(item, "is_packed_after_failure", False):
+                sep_x = curr_x
+                # Line goes through the bin and above, but not below
+                margin = 0.2 * height
+                ax.plot([sep_x, sep_x], [y, y + height + margin], color="red", linewidth=4, linestyle="solid", zorder=20)
+                # Draw label above the line
+                ax.text(sep_x + 0.05, y + height + margin + 0.02, "after failure", ha="left", va="bottom", fontsize=10, color="red", zorder=21)
+                after_failure_drawn = True
             ax.add_patch(plt.Rectangle((curr_x, y), item_width, height, color=item._color, ec='black', linewidth=1))
             curr_x += item_width
     # Draw label and capacity info
-    ax.text(x + width/2, y + height + 0.32, f"{label}\ncapacity: {int(capacity)}\nused: {int(sum(item.size for item in items))}",
-            ha="center", va="bottom", fontsize=14)
+    if label == "Leftover":
+        ax.text(x + width/2, y + height + 0.32, f"Leftover: {int(sum(item.size for item in items))}",
+                ha="center", va="bottom", fontsize=14)
+    else:
+        ax.text(x + width/2, y + height + 0.32, f"{label}\ncapacity: {int(capacity)}\nused: {int(sum(item.size for item in items))}",
+                ha="center", va="bottom", fontsize=14)
     # Draw ticks for each unit, but only show every Nth label if too many
     max_ticks = 15
     if capacity > max_ticks:

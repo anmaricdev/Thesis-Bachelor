@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<question number="4"><variable name="bin_capacities_4" single="bin_capacity_4">[13, 12, 12, 11]
+[13, 14, 15, 14, 11]</variable><variable name="items_4" single="item_4">[4, 7, 8, 4, 7, 5, 5, 7, 1, 2, 1]
+[2, 5, 2, 8, 5, 4, 3, 6, 4, 5, 1]</variable><variable name="packing_results_4" single="packing_result_4">Approach: NEXT, Bins: 4, Items: 11
+Approach: NEXT, Bins: 5, Items: 11</variable><variable name="packing_results_regex_4" single="packing_result_regex_4">\[*\s*Approach:NEXT\s*,\s*Bins:4\s*,\s*Items:11\s*\]*
+\[*\s*Approach:NEXT\s*,\s*Bins:5\s*,\s*Items:11\s*\]*</variable><image_id name="question_4_image_id">[var=image_ids_start] + 4 + [var=index_question_4]</image_id></question>
