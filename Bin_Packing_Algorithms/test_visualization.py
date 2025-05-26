@@ -13,9 +13,13 @@ ITEM_COUNT_MAX = 5
 ITEM_SIZE_MIN = 1
 ITEM_SIZE_MAX = 10
 
-for _ in range(AMOUNT_ITERATIONS):
-    capacities, items = get_random_capacities_and_items(
-        BINS_COUNT_MIN, BINS_COUNT_MAX, BINS_CAPACITY_MIN, BINS_CAPACITY_MAX, ITEM_COUNT_MIN, ITEM_COUNT_MAX, ITEM_SIZE_MIN, ITEM_SIZE_MAX, ALLOW_VARIABLE_SIZE)
-    print("capacities =", capacities)
-    print("items =", items)
-    visualize_bin_packing(capacities, items)
+capacities = [3, 8, 3]
+items = [14, 2, 3, 1, 3, 1]
+visualize_bin_packing(capacities, items)
+
+# for _ in range(AMOUNT_ITERATIONS):
+#     capacities, items = get_random_capacities_and_items(
+#         BINS_COUNT_MIN, BINS_COUNT_MAX, BINS_CAPACITY_MIN, BINS_CAPACITY_MAX, ITEM_COUNT_MIN, ITEM_COUNT_MAX, ITEM_SIZE_MIN, ITEM_SIZE_MAX, ALLOW_VARIABLE_SIZE)
+#     print("capacities =", capacities)
+#     print("items =", items)
+#     visualize_bin_packing(capacities, items)
