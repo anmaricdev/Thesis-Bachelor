@@ -1,6 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<question number="3"><variable name="bin_capacities_3" single="bin_capacity_3">[13]
-[8, 9, 8, 14, 13]</variable><variable name="items_3" single="item_3">[5, 4, 6, 4, 7, 8, 4, 7, 5, 5]
-[8, 7, 4, 6, 2, 5, 2, 8, 5, 4, 3]</variable><variable name="packing_results_3" single="packing_result_3">Approach: FIRST, Bins: 1, Items: 10
-Approach: FIRST, Bins: 5, Items: 11</variable><variable name="packing_results_regex_3" single="packing_result_regex_3">\[*\s*Approach:FIRST\s*,\s*Bins:1\s*,\s*Items:10\s*\]*
-\[*\s*Approach:FIRST\s*,\s*Bins:5\s*,\s*Items:11\s*\]*</variable><image_id name="question_3_image_id">[var=image_ids_start] + 2 + [var=index_question_3]</image_id></question>
