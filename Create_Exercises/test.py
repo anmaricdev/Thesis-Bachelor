@@ -1,30 +1,26 @@
 import random
-import json
-from datetime import datetime
-from formatter_for_copy_paste_export_to_jack3 import *
-from formatter_to_xml import format_to_xml, clear_variable_declarations
-from append_question_number_to_string import append_question_number_to_string
+import matplotlib.pyplot as plt
 import base64
 import glob
 import os
 import sys
-import shutil
-
-# Add the parent directory to the Python path
-current_dir = os.path.dirname(os.path.abspath(__file__))
-parent_dir = os.path.dirname(current_dir)
-sys.path.append(parent_dir)
-
-# Import from the correct module path
-from Bin_Packing_Algorithms import (
-    get_random_capacities_and_items,
-    visualize_bin_packing,
+from datetime import datetime
+from formatter_for_copy_paste_export_to_jack3 import *
+from formatter_to_xml import format_to_xml, clear_variable_declarations
+from append_question_number_to_string import append_question_number_to_string
+from Visualization import visualize_bin_packing
+from HelperFuncRand import get_random_capacities_and_items
+from BinPackingAlgorithms import (
     bin_packing_best_fit_var_capa,
     bin_packing_first_fit_var_capa,
     bin_packing_next_fit_var_capa,
     bin_packing_worst_fit_var_capa
 )
-import matplotlib.pyplot as plt
+
+# Add the parent directory to the Python path
+current_dir = os.path.dirname(os.path.abspath(__file__))
+parent_dir = os.path.dirname(current_dir)
+sys.path.append(parent_dir)
 
 def generate_solution_regex(answer: str) -> str:
     solution = answer

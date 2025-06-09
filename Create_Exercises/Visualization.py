@@ -3,9 +3,9 @@ import matplotlib as mpl
 import math
 import numpy as np
 import os
-from .configuration_Matplotlib import *
-from .Class_Items import create_items_bulk
-from .BinPackingAlgorithms import bin_packing_best_fit_var_capa, bin_packing_first_fit_var_capa, bin_packing_next_fit_var_capa, bin_packing_worst_fit_var_capa
+from configuration_Matplotlib import *
+from Class_Items import create_items_bulk
+from BinPackingAlgorithms import bin_packing_best_fit_var_capa, bin_packing_first_fit_var_capa, bin_packing_next_fit_var_capa, bin_packing_worst_fit_var_capa
 
 def determine_start_position_and_direction(amount_rows, amount_columns, amount_items):
     start_from_left = amount_rows % 2 == 1 or amount_rows * \
@@ -240,19 +240,25 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False, algorithms=N
     has_leftover = not is_possible
     n_blocks = n_bins + (1 if has_leftover else 0)
     # Layout parameters
-    text_width = 4.2  # Reduced to move bins further right
+    text_width = 4.2
     bin_width = 4.0
-    bin_height = 0.6  # Reduced by half
-    gap = 1.0  # Increased gap
-    top_padding = 1.2  # More space at the top
-    total_width = text_width + n_bins * (bin_width + gap) + (bin_width + gap if has_leftover else 0)
-    total_height = bin_height + top_padding + 0.7
+    bin_height = 0.6
+    gap = 1.2  # Gap between bins
+    top_padding = 1.5
+    text_height = 0.5  # Reduced from 0.8 to 0.5
+    
+    # Calculate total height and width for vertical layout
+    total_height = top_padding + n_bins * (bin_height + gap + text_height) + (bin_height + gap + text_height if has_leftover else 0)
+    total_width = text_width + bin_width + 1.0
+    
     fig, ax = plt.subplots(figsize=(total_width, total_height))
-    # Place overview text (shifted down for more space at the top)
+    
+    # Place overview text
     if not is_possible:
         used_items = [item for item in used_bins for item in item]
         leftover_items = [item for item in items if item not in used_items]
     could_not_place_size = 0 if is_possible else sum(map(lambda item: item.size, leftover_items))
+    
     # Compose overview text
     if approach == "BEST":
         approach_text = "Best-fit bin packing"
@@ -266,20 +272,28 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False, algorithms=N
     overview_text = f"{approach_text}\n({success_status})\nbins used: {len([b for b in used_bins if b])}"
     if not is_possible:
         overview_text += f"\nleftover: {could_not_place_size}"
-    ax.text(0.02, 0.45, overview_text, ha="left", va="center", fontsize=18, transform=ax.transAxes)
-    # Place bins (shifted down for more space at the top)
+    
+    # Place text in the center of the left side
+    ax.text(0.02, 0.5, overview_text, ha="left", va="center", fontsize=18, transform=ax.transAxes)
+    
+    # Place bins vertically
     x = text_width
-    y = 0.45 * total_height
+    y = total_height - top_padding - bin_height - text_height
     bin_rects = []
+    
     for i, used_bin in enumerate(used_bins):
-        bin_x = x + i * (bin_width + gap)
-        rect = _draw_bin(ax, bin_x, y - bin_height/2, bin_width, bin_height, capacities[i], used_bin, f"Bin {i+1}")
+        bin_y = y - i * (bin_height + gap + text_height)
+        rect = _draw_bin(ax, x, bin_y, bin_width, bin_height, capacities[i], used_bin, f"Bin {i+1}")
         bin_rects.append(rect)
+    
     # Place leftover if needed
     if has_leftover:
-        leftover_x = x + n_bins * (bin_width + gap)
-        rect = _draw_bin(ax, leftover_x, y - bin_height/2, bin_width, bin_height, sum(map(lambda item: item.size, leftover_items)), leftover_items, "Leftover")
+        leftover_y = y - n_bins * (bin_height + gap + text_height)
+        rect = _draw_bin(ax, x, leftover_y, bin_width, bin_height, 
+                        sum(map(lambda item: item.size, leftover_items)), 
+                        leftover_items, "Leftover")
         bin_rects.append(rect)
+    
     # Draw red cross if not successful
     if not is_possible and bin_rects:
         # Get bounding box covering all bins
@@ -287,19 +301,20 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False, algorithms=N
         max_x = max([r[0] + r[2] for r in bin_rects])
         min_y = min([r[1] for r in bin_rects])
         max_y = max([r[1] + r[3] for r in bin_rects])
-        # Extend the cross a bit beyond the bins (2% margin, was 5%)
+        # Extend the cross a bit beyond the bins
         x_margin = 0.02 * (max_x - min_x)
         y_margin = 0.02 * (max_y - min_y)
         min_xe = min_x - x_margin
         max_xe = max_x + x_margin
         min_ye = min_y - y_margin
         max_ye = max_y + y_margin
-        # Draw black outline first (fatter)
+        # Draw black outline first
         ax.plot([min_xe, max_xe], [min_ye, max_ye], color='black', linewidth=12, alpha=0.5, zorder=10)
         ax.plot([min_xe, max_xe], [max_ye, min_ye], color='black', linewidth=12, alpha=0.5, zorder=10)
         # Draw red cross on top
         ax.plot([min_xe, max_xe], [min_ye, max_ye], color='red', linewidth=8, alpha=0.5, zorder=11)
         ax.plot([min_xe, max_xe], [max_ye, min_ye], color='red', linewidth=8, alpha=0.5, zorder=11)
+    
     # Remove all axes
     ax.set_xticks([])
     ax.set_yticks([])
@@ -333,10 +348,10 @@ def _draw_bin(ax, x, y, width, height, capacity, items, label):
             curr_x += item_width
     # Draw label and capacity info
     if label == "Leftover":
-        ax.text(x + width/2, y + height + 0.32, f"Leftover: {int(sum(item.size for item in items))}",
+        ax.text(x + width/2, y + height + 0.25, f"Leftover: {int(sum(item.size for item in items))}",
                 ha="center", va="bottom", fontsize=14)
     else:
-        ax.text(x + width/2, y + height + 0.32, f"{label}\ncapacity: {int(capacity)}\nused: {int(sum(item.size for item in items))}",
+        ax.text(x + width/2, y + height + 0.25, f"{label}\ncapacity: {int(capacity)}\nused: {int(sum(item.size for item in items))}",
                 ha="center", va="bottom", fontsize=14)
     # Draw ticks for each unit, but only show every Nth label if too many
     max_ticks = 15

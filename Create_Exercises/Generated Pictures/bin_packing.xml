@@ -1,0 +1,484 @@
+<exercise>
+    <variableDeclarations id="1">
+    <VariableDeclaration id="2">
+  <name>index_question_2</name>
+  <initializationCode id="3">
+    <code>randomIntegerBetween(0, 1)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="4">
+  <name>bin_capacities_question_2</name>
+  <initializationCode id="5">
+    <code>list(&apos;[13, 12, 12, 11]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="6">
+  <name>bin_capacity_question_2</name>
+  <initializationCode id="7">
+    <code>getFromList([var=index_question_2],[var=bin_capacities_question_2])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="8">
+  <name>items_question_2</name>
+  <initializationCode id="9">
+    <code>list(&apos;[4, 7, 8, 4, 7, 5, 5, 7, 1, 2, 1]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="10">
+  <name>item_question_2</name>
+  <initializationCode id="11">
+    <code>getFromList([var=index_question_2],[var=items_question_2])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="12">
+  <name>packing_results_question_2</name>
+  <initializationCode id="13">
+    <code>list(&apos;Approach: BEST, Bins: 4, Items: 11&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="14">
+  <name>packing_result_question_2</name>
+  <initializationCode id="15">
+    <code>getFromList([var=index_question_2],[var=packing_results_question_2])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="16">
+  <name>packing_results_regex_question_2</name>
+  <initializationCode id="17">
+    <code>list(&apos;\[*\s*Approach:BEST\s*,\s*Bins:4\s*,\s*Items:11\s*\]*&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="18">
+  <name>packing_result_regex_question_2</name>
+  <initializationCode id="19">
+    <code>getFromList([var=index_question_2],[var=packing_results_regex_question_2])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="20">
+  <name>question_2_image_id</name>
+  <initializationCode id="21">
+    <code>[var=image_ids_start] + 0 + [var=index_question_2]</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="22">
+  <name>index_question_2</name>
+  <initializationCode id="23">
+    <code>randomIntegerBetween(0, 1)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="24">
+  <name>bin_capacities_question_2</name>
+  <initializationCode id="25">
+    <code>list(&apos;[13]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="26">
+  <name>bin_capacity_question_2</name>
+  <initializationCode id="27">
+    <code>getFromList([var=index_question_2],[var=bin_capacities_question_2])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="28">
+  <name>items_question_2</name>
+  <initializationCode id="29">
+    <code>list(&apos;[8, 7, 4, 6, 2, 5, 2, 8, 5, 4, 3]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="30">
+  <name>item_question_2</name>
+  <initializationCode id="31">
+    <code>getFromList([var=index_question_2],[var=items_question_2])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="32">
+  <name>packing_results_question_2</name>
+  <initializationCode id="33">
+    <code>list(&apos;Approach: BEST, Bins: 1, Items: 11&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="34">
+  <name>packing_result_question_2</name>
+  <initializationCode id="35">
+    <code>getFromList([var=index_question_2],[var=packing_results_question_2])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="36">
+  <name>packing_results_regex_question_2</name>
+  <initializationCode id="37">
+    <code>list(&apos;\[*\s*Approach:BEST\s*,\s*Bins:1\s*,\s*Items:11\s*\]*&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="38">
+  <name>packing_result_regex_question_2</name>
+  <initializationCode id="39">
+    <code>getFromList([var=index_question_2],[var=packing_results_regex_question_2])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="40">
+  <name>question_2_image_id</name>
+  <initializationCode id="41">
+    <code>[var=image_ids_start] + 1 + [var=index_question_2]</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="42">
+  <name>index_question_3</name>
+  <initializationCode id="43">
+    <code>randomIntegerBetween(0, 1)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="44">
+  <name>bin_capacities_question_3</name>
+  <initializationCode id="45">
+    <code>list(&apos;[11, 12, 8, 12]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="46">
+  <name>bin_capacity_question_3</name>
+  <initializationCode id="47">
+    <code>getFromList([var=index_question_3],[var=bin_capacities_question_3])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="48">
+  <name>items_question_3</name>
+  <initializationCode id="49">
+    <code>list(&apos;[5, 8, 6, 4, 4, 6, 1, 6, 6, 2]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="50">
+  <name>item_question_3</name>
+  <initializationCode id="51">
+    <code>getFromList([var=index_question_3],[var=items_question_3])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="52">
+  <name>packing_results_question_3</name>
+  <initializationCode id="53">
+    <code>list(&apos;Approach: FIRST, Bins: 4, Items: 10&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="54">
+  <name>packing_result_question_3</name>
+  <initializationCode id="55">
+    <code>getFromList([var=index_question_3],[var=packing_results_question_3])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="56">
+  <name>packing_results_regex_question_3</name>
+  <initializationCode id="57">
+    <code>list(&apos;\[*\s*Approach:FIRST\s*,\s*Bins:4\s*,\s*Items:10\s*\]*&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="58">
+  <name>packing_result_regex_question_3</name>
+  <initializationCode id="59">
+    <code>getFromList([var=index_question_3],[var=packing_results_regex_question_3])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="60">
+  <name>question_3_image_id</name>
+  <initializationCode id="61">
+    <code>[var=image_ids_start] + 0 + [var=index_question_3]</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="62">
+  <name>index_question_3</name>
+  <initializationCode id="63">
+    <code>randomIntegerBetween(0, 1)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="64">
+  <name>bin_capacities_question_3</name>
+  <initializationCode id="65">
+    <code>list(&apos;[10, 11]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="66">
+  <name>bin_capacity_question_3</name>
+  <initializationCode id="67">
+    <code>getFromList([var=index_question_3],[var=bin_capacities_question_3])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="68">
+  <name>items_question_3</name>
+  <initializationCode id="69">
+    <code>list(&apos;[4, 8, 2, 2, 2, 6, 3, 4, 3, 2]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="70">
+  <name>item_question_3</name>
+  <initializationCode id="71">
+    <code>getFromList([var=index_question_3],[var=items_question_3])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="72">
+  <name>packing_results_question_3</name>
+  <initializationCode id="73">
+    <code>list(&apos;Approach: FIRST, Bins: 2, Items: 10&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="74">
+  <name>packing_result_question_3</name>
+  <initializationCode id="75">
+    <code>getFromList([var=index_question_3],[var=packing_results_question_3])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="76">
+  <name>packing_results_regex_question_3</name>
+  <initializationCode id="77">
+    <code>list(&apos;\[*\s*Approach:FIRST\s*,\s*Bins:2\s*,\s*Items:10\s*\]*&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="78">
+  <name>packing_result_regex_question_3</name>
+  <initializationCode id="79">
+    <code>getFromList([var=index_question_3],[var=packing_results_regex_question_3])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="80">
+  <name>question_3_image_id</name>
+  <initializationCode id="81">
+    <code>[var=image_ids_start] + 1 + [var=index_question_3]</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="82">
+  <name>index_question_4</name>
+  <initializationCode id="83">
+    <code>randomIntegerBetween(0, 1)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="84">
+  <name>bin_capacities_question_4</name>
+  <initializationCode id="85">
+    <code>list(&apos;[13, 9]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="86">
+  <name>bin_capacity_question_4</name>
+  <initializationCode id="87">
+    <code>getFromList([var=index_question_4],[var=bin_capacities_question_4])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="88">
+  <name>items_question_4</name>
+  <initializationCode id="89">
+    <code>list(&apos;[4, 7, 2, 7, 2, 8, 4, 8, 5]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="90">
+  <name>item_question_4</name>
+  <initializationCode id="91">
+    <code>getFromList([var=index_question_4],[var=items_question_4])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="92">
+  <name>packing_results_question_4</name>
+  <initializationCode id="93">
+    <code>list(&apos;Approach: NEXT, Bins: 2, Items: 9&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="94">
+  <name>packing_result_question_4</name>
+  <initializationCode id="95">
+    <code>getFromList([var=index_question_4],[var=packing_results_question_4])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="96">
+  <name>packing_results_regex_question_4</name>
+  <initializationCode id="97">
+    <code>list(&apos;\[*\s*Approach:NEXT\s*,\s*Bins:2\s*,\s*Items:9\s*\]*&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="98">
+  <name>packing_result_regex_question_4</name>
+  <initializationCode id="99">
+    <code>getFromList([var=index_question_4],[var=packing_results_regex_question_4])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="100">
+  <name>question_4_image_id</name>
+  <initializationCode id="101">
+    <code>[var=image_ids_start] + 0 + [var=index_question_4]</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="102">
+  <name>index_question_4</name>
+  <initializationCode id="103">
+    <code>randomIntegerBetween(0, 1)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="104">
+  <name>bin_capacities_question_4</name>
+  <initializationCode id="105">
+    <code>list(&apos;[8, 10, 9, 10]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="106">
+  <name>bin_capacity_question_4</name>
+  <initializationCode id="107">
+    <code>getFromList([var=index_question_4],[var=bin_capacities_question_4])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="108">
+  <name>items_question_4</name>
+  <initializationCode id="109">
+    <code>list(&apos;[3, 4, 1, 6, 5, 3, 5, 2]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="110">
+  <name>item_question_4</name>
+  <initializationCode id="111">
+    <code>getFromList([var=index_question_4],[var=items_question_4])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="112">
+  <name>packing_results_question_4</name>
+  <initializationCode id="113">
+    <code>list(&apos;Approach: NEXT, Bins: 4, Items: 8&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="114">
+  <name>packing_result_question_4</name>
+  <initializationCode id="115">
+    <code>getFromList([var=index_question_4],[var=packing_results_question_4])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="116">
+  <name>packing_results_regex_question_4</name>
+  <initializationCode id="117">
+    <code>list(&apos;\[*\s*Approach:NEXT\s*,\s*Bins:4\s*,\s*Items:8\s*\]*&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="118">
+  <name>packing_result_regex_question_4</name>
+  <initializationCode id="119">
+    <code>getFromList([var=index_question_4],[var=packing_results_regex_question_4])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="120">
+  <name>question_4_image_id</name>
+  <initializationCode id="121">
+    <code>[var=image_ids_start] + 1 + [var=index_question_4]</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="122">
+  <name>index_question_5</name>
+  <initializationCode id="123">
+    <code>randomIntegerBetween(0, 1)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="124">
+  <name>bin_capacities_question_5</name>
+  <initializationCode id="125">
+    <code>list(&apos;[15, 10, 13, 9]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="126">
+  <name>bin_capacity_question_5</name>
+  <initializationCode id="127">
+    <code>getFromList([var=index_question_5],[var=bin_capacities_question_5])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="128">
+  <name>items_question_5</name>
+  <initializationCode id="129">
+    <code>list(&apos;[3, 2, 5, 1, 7, 1, 6, 3, 6, 8, 3]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="130">
+  <name>item_question_5</name>
+  <initializationCode id="131">
+    <code>getFromList([var=index_question_5],[var=items_question_5])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="132">
+  <name>packing_results_question_5</name>
+  <initializationCode id="133">
+    <code>list(&apos;Approach: WORST, Bins: 4, Items: 11&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="134">
+  <name>packing_result_question_5</name>
+  <initializationCode id="135">
+    <code>getFromList([var=index_question_5],[var=packing_results_question_5])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="136">
+  <name>packing_results_regex_question_5</name>
+  <initializationCode id="137">
+    <code>list(&apos;\[*\s*Approach:WORST\s*,\s*Bins:4\s*,\s*Items:11\s*\]*&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="138">
+  <name>packing_result_regex_question_5</name>
+  <initializationCode id="139">
+    <code>getFromList([var=index_question_5],[var=packing_results_regex_question_5])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="140">
+  <name>question_5_image_id</name>
+  <initializationCode id="141">
+    <code>[var=image_ids_start] + 0 + [var=index_question_5]</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="142">
+  <name>index_question_5</name>
+  <initializationCode id="143">
+    <code>randomIntegerBetween(0, 1)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="144">
+  <name>bin_capacities_question_5</name>
+  <initializationCode id="145">
+    <code>list(&apos;[12]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="146">
+  <name>bin_capacity_question_5</name>
+  <initializationCode id="147">
+    <code>getFromList([var=index_question_5],[var=bin_capacities_question_5])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="148">
+  <name>items_question_5</name>
+  <initializationCode id="149">
+    <code>list(&apos;[3, 8, 4, 7, 6, 3, 7, 4, 7, 5]&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="150">
+  <name>item_question_5</name>
+  <initializationCode id="151">
+    <code>getFromList([var=index_question_5],[var=items_question_5])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="152">
+  <name>packing_results_question_5</name>
+  <initializationCode id="153">
+    <code>list(&apos;Approach: WORST, Bins: 1, Items: 10&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="154">
+  <name>packing_result_question_5</name>
+  <initializationCode id="155">
+    <code>getFromList([var=index_question_5],[var=packing_results_question_5])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="156">
+  <name>packing_results_regex_question_5</name>
+  <initializationCode id="157">
+    <code>list(&apos;\[*\s*Approach:WORST\s*,\s*Bins:1\s*,\s*Items:10\s*\]*&apos;)</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="158">
+  <name>packing_result_regex_question_5</name>
+  <initializationCode id="159">
+    <code>getFromList([var=index_question_5],[var=packing_results_regex_question_5])</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration><VariableDeclaration id="160">
+  <name>question_5_image_id</name>
+  <initializationCode id="161">
+    <code>[var=image_ids_start] + 1 + [var=index_question_5]</code>
+    <domain>MATH</domain>
+  </initializationCode>
+</VariableDeclaration></variableDeclarations>
+</exercise>
