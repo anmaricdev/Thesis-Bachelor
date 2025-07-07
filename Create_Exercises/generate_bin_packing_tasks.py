@@ -5,6 +5,14 @@ import glob
 import os
 import sys
 from datetime import datetime
+from Visualization import visualize_bin_packing
+from HelperFuncRand import get_random_capacities_and_items
+from BinPackingAlgorithms import (
+    bin_packing_best_fit_var_capa,
+    bin_packing_first_fit_var_capa,
+    bin_packing_next_fit_var_capa,
+    bin_packing_worst_fit_var_capa
+)
 
 # Add the parent directory to the Python path
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -16,18 +24,8 @@ from formatter_for_copy_paste_export_to_jack3 import *
 from formatter_to_xml import format_to_xml, clear_variable_declarations
 from append_question_number_to_string import append_question_number_to_string
 
-# Import bin packing modules
-from Visualization import visualize_bin_packing
-from HelperFuncRand import get_random_capacities_and_items
-from BinPackingAlgorithms import (
-    bin_packing_best_fit_var_capa,
-    bin_packing_first_fit_var_capa,
-    bin_packing_next_fit_var_capa,
-    bin_packing_worst_fit_var_capa
-)
-
 # Constants for exercise generation
-VARIANTS_PER_EXERCISE = 2  # Number of variants for each exercise type
+VARIANTS_PER_EXERCISE = 5  # Number of variants for each exercise type
 EXERCISE_TYPES = {
     "BEST": 2,    # Exercise 2: Best Fit
     "FIRST": 3,   # Exercise 3: First Fit
@@ -35,18 +33,18 @@ EXERCISE_TYPES = {
     "WORST": 5    # Exercise 5: Worst Fit
 }
 
-def create_initial_xml(folder_path):
-    """Create an initial XML file if it doesn't exist."""
-    xml_path = os.path.join(folder_path, "bin_packing.xml")
-    if not os.path.exists(xml_path):
-        initial_xml = """<?xml version="1.0" encoding="UTF-8"?>
-<exercise>
-    <variableDeclarations id="1">
-    </variableDeclarations>
-</exercise>"""
-        with open(xml_path, 'w', encoding='utf-8') as f:
-            f.write(initial_xml)
-    return xml_path
+# def create_initial_xml(folder_path):
+#     """Create an initial XML file if it doesn't exist."""
+#     xml_path = os.path.join(folder_path, "bin_packing.xml")
+#     if not os.path.exists(xml_path):
+#         initial_xml = """<?xml version="1.0" encoding="UTF-8"?>
+# <exercise>
+#     <variableDeclarations id="1">
+#     </variableDeclarations>
+# </exercise>"""
+#         with open(xml_path, 'w', encoding='utf-8') as f:
+#             f.write(initial_xml)
+#     return xml_path
 
 def generate_solution_regex(answer: str) -> str:
     """Generate a regex pattern for the solution."""

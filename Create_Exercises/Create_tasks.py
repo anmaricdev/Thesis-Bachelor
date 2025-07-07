@@ -27,18 +27,18 @@ def bin_packing_test(question_number, num_calls):
     ]
 
 # Wichtig: Hier soll der Pfad angegeben werden von dem Ordner, wo die XML drin ist. Nicht der Pfad zu der XML selbst.
-folder_path = r"path/to/directory/containing/xml"
+folder_path = r"/Users/antemaric/Desktop/Bachelorarbeit/Thesis-Bachelor/Exercises"
 
 clear_variable_declarations(folder_path)
 
 num_calls = 5
 
 question_number = 1
-result = tree_traversal_test(question_number, num_calls)
+result = bin_packing_test(question_number, num_calls)
 format_to_xml(folder_path, result, question_number, num_calls, [("image_ids_start", "Put image start id here"), ("question_1_image_id", f"[var=image_ids_start] + {str(num_calls*(question_number-1))} + [var=index_question_1]")])
 
 question_number = 2
-result = tree_traversal_test(question_number, num_calls)
+result = bin_packing_test(question_number, num_calls)
 format_to_xml(folder_path, result, question_number, num_calls, [("question_2_image_id", f"[var=image_ids_start] + {str(num_calls*(question_number-1))} + [var=index_question_2]")])
 
 """
