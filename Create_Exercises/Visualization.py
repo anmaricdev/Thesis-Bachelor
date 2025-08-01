@@ -207,29 +207,42 @@ def create_overview(approach, could_not_place_size, amount_bins, ax):
             color="black", linespacing=1.2)  # All text in black
 
 
-def visualize_bin_packing(capacities, items, visualize_in_2d=False, algorithms=None):
+def visualize_bin_packing(
+    capacities, items, visualize_in_2d=False, algorithms=None, visualization_options=None
+):
+    if visualization_options is None:
+        visualization_options = {}
+    show_packed_items = visualization_options.get("show_packed_items", True)
+    show_next_item = visualization_options.get("show_next_item", False)
+    next_item = visualization_options.get("next_item", None)
+    highlight_bin = visualization_options.get("highlight_bin", None)
+    hide_solution = visualization_options.get("hide_solution", False)
+    hide_leftover = visualization_options.get("hide_leftover", False)
+    show_items_list = visualization_options.get("show_items_list", False)
+    hide_bin_filling = visualization_options.get("hide_bin_filling", False)
+    hide_used_info = visualization_options.get("hide_used_info", False)
     # Only support single algorithm for tight cropping
     if algorithms:
         approach = algorithms[0]
     else:
         approach = "BEST"
     fixed_size = len(set(capacities)) == 1
-    items = create_items_bulk(*items)
+    items_obj = create_items_bulk(*items)
     if fixed_size:
         capacities = [capacities[0] for _ in range(len(capacities))]
     colors = mpl.colormaps[BIN_PACKING_COLORMAP_NAME](
-        np.linspace(0, 1, len(items)))
-    for item, color in zip(items, colors):
+        np.linspace(0, 1, len(items_obj)))
+    for item, color in zip(items_obj, colors):
         item._color = color
     # Run the algorithm
     if approach == "BEST":
-        is_possible, used_bins, bins_packed_after_failure = bin_packing_best_fit_var_capa(capacities, items)
+        is_possible, used_bins, bins_packed_after_failure = bin_packing_best_fit_var_capa(capacities, items_obj)
     elif approach == "FIRST":
-        is_possible, used_bins, bins_packed_after_failure = bin_packing_first_fit_var_capa(capacities, items)
+        is_possible, used_bins, bins_packed_after_failure = bin_packing_first_fit_var_capa(capacities, items_obj)
     elif approach == "NEXT":
-        is_possible, used_bins, bins_packed_after_failure = bin_packing_next_fit_var_capa(capacities, items)
+        is_possible, used_bins, bins_packed_after_failure = bin_packing_next_fit_var_capa(capacities, items_obj)
     elif approach == "WORST":
-        is_possible, used_bins, bins_packed_after_failure = bin_packing_worst_fit_var_capa(capacities, items)
+        is_possible, used_bins, bins_packed_after_failure = bin_packing_worst_fit_var_capa(capacities, items_obj)
     else:
         raise ValueError(f"Unknown approach: {approach}")
     for bin_packed_after_failure in bins_packed_after_failure:
@@ -238,7 +251,7 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False, algorithms=N
     # Prepare for manual layout
     n_bins = len(used_bins)
     has_leftover = not is_possible
-    n_blocks = n_bins + (1 if has_leftover else 0)
+    n_blocks = n_bins + (1 if has_leftover and not hide_leftover else 0)
     # Layout parameters
     text_width = 4.2
     bin_width = 4.0
@@ -246,19 +259,15 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False, algorithms=N
     gap = 1.2  # Gap between bins
     top_padding = 1.5
     text_height = 0.5  # Reduced from 0.8 to 0.5
-    
     # Calculate total height and width for vertical layout
-    total_height = top_padding + n_bins * (bin_height + gap + text_height) + (bin_height + gap + text_height if has_leftover else 0)
+    total_height = top_padding + n_bins * (bin_height + gap + text_height) + (bin_height + gap + text_height if has_leftover and not hide_leftover else 0)
     total_width = text_width + bin_width + 1.0
-    
     fig, ax = plt.subplots(figsize=(total_width, total_height))
-    
     # Place overview text
     if not is_possible:
         used_items = [item for item in used_bins for item in item]
-        leftover_items = [item for item in items if item not in used_items]
+        leftover_items = [item for item in items_obj if item not in used_items]
     could_not_place_size = 0 if is_possible else sum(map(lambda item: item.size, leftover_items))
-    
     # Compose overview text
     if approach == "BEST":
         approach_text = "Best-fit bin packing"
@@ -270,51 +279,48 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False, algorithms=N
         approach_text = "Worst-fit bin packing"
     success_status = "Successful" if is_possible else "Not successful"
     overview_text = f"{approach_text}\n({success_status})\nbins used: {len([b for b in used_bins if b])}"
-    if not is_possible:
+    if not is_possible and not hide_leftover:
         overview_text += f"\nleftover: {could_not_place_size}"
-    
-    # Place text in the center of the left side
-    ax.text(0.02, 0.5, overview_text, ha="left", va="center", fontsize=18, transform=ax.transAxes)
-    
+    if not hide_solution:
+        ax.text(0.02, 0.5, overview_text, ha="left", va="center", fontsize=18, transform=ax.transAxes)
+    # Show items list if requested
+    if show_items_list:
+        items_text = f"Items to pack:\n [{', '.join(map(str, items))}]"
+        ax.text(0.2, 0.5, items_text, ha="center", va="center", fontsize=14, transform=ax.transAxes, color='black')
     # Place bins vertically
     x = text_width
     y = total_height - top_padding - bin_height - text_height
     bin_rects = []
-    
     for i, used_bin in enumerate(used_bins):
         bin_y = y - i * (bin_height + gap + text_height)
-        rect = _draw_bin(ax, x, bin_y, bin_width, bin_height, capacities[i], used_bin, f"Bin {i+1}")
+        # If hide_bin_filling is True, pass empty list to _draw_bin
+        items_to_show = [] if hide_bin_filling else used_bin
+        rect = _draw_bin(ax, x, bin_y, bin_width, bin_height, capacities[i], items_to_show, f"Bin {i+1}", hide_used_info)
         bin_rects.append(rect)
-    
-    # Place leftover if needed
-    if has_leftover:
+    # Place leftover if needed and not hidden
+    if has_leftover and not hide_leftover:
         leftover_y = y - n_bins * (bin_height + gap + text_height)
+        items_to_show = [] if hide_bin_filling else leftover_items
         rect = _draw_bin(ax, x, leftover_y, bin_width, bin_height, 
                         sum(map(lambda item: item.size, leftover_items)), 
-                        leftover_items, "Leftover")
+                        items_to_show, "Leftover", hide_used_info)
         bin_rects.append(rect)
-    
     # Draw red cross if not successful
-    if not is_possible and bin_rects:
-        # Get bounding box covering all bins
+    if not is_possible and bin_rects and not hide_leftover:
         min_x = min([r[0] for r in bin_rects])
         max_x = max([r[0] + r[2] for r in bin_rects])
         min_y = min([r[1] for r in bin_rects])
         max_y = max([r[1] + r[3] for r in bin_rects])
-        # Extend the cross a bit beyond the bins
         x_margin = 0.02 * (max_x - min_x)
         y_margin = 0.02 * (max_y - min_y)
         min_xe = min_x - x_margin
         max_xe = max_x + x_margin
         min_ye = min_y - y_margin
         max_ye = max_y + y_margin
-        # Draw black outline first
         ax.plot([min_xe, max_xe], [min_ye, max_ye], color='black', linewidth=12, alpha=0.5, zorder=10)
         ax.plot([min_xe, max_xe], [max_ye, min_ye], color='black', linewidth=12, alpha=0.5, zorder=10)
-        # Draw red cross on top
         ax.plot([min_xe, max_xe], [min_ye, max_ye], color='red', linewidth=8, alpha=0.5, zorder=11)
         ax.plot([min_xe, max_xe], [max_ye, min_ye], color='red', linewidth=8, alpha=0.5, zorder=11)
-    
     # Remove all axes
     ax.set_xticks([])
     ax.set_yticks([])
@@ -324,7 +330,7 @@ def visualize_bin_packing(capacities, items, visualize_in_2d=False, algorithms=N
     ax.set_ylim(0, total_height)
     return fig
 
-def _draw_bin(ax, x, y, width, height, capacity, items, label):
+def _draw_bin(ax, x, y, width, height, capacity, items, label, hide_used_info):
     # Draw bin rectangle
     rect = plt.Rectangle((x, y), width, height, fill=False, edgecolor='black', linewidth=2)
     ax.add_patch(rect)
@@ -351,8 +357,12 @@ def _draw_bin(ax, x, y, width, height, capacity, items, label):
         ax.text(x + width/2, y + height + 0.25, f"Leftover: {int(sum(item.size for item in items))}",
                 ha="center", va="bottom", fontsize=14)
     else:
-        ax.text(x + width/2, y + height + 0.25, f"{label}\ncapacity: {int(capacity)}\nused: {int(sum(item.size for item in items))}",
-                ha="center", va="bottom", fontsize=14)
+        if not hide_used_info:
+            ax.text(x + width/2, y + height + 0.25, f"{label}\ncapacity: {int(capacity)}\nused: {int(sum(item.size for item in items))}",
+                    ha="center", va="bottom", fontsize=14)
+        else:
+            ax.text(x + width/2, y + height + 0.25, f"{label}\ncapacity: {int(capacity)}",
+                    ha="center", va="bottom", fontsize=14)
     # Draw ticks for each unit, but only show every Nth label if too many
     max_ticks = 15
     if capacity > max_ticks:

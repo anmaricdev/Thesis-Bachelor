@@ -37,7 +37,7 @@ def format_single_input_to_xml(name, input_str, current_id):
 """
     return xml_output, current_id + 2
 
-def generate_variable_declarations_from_array(start_id, name_input_array, question_number, question_amount, exercise_constants: list[str, str]|None=None):
+def generate_variable_declarations_from_array(start_id, name_input_array, question_number, question_amount, exercise_constants: list[str, str]|None=None, solution_constants: list[str, str]|None=None):
     """
     Generates a list of VariableDeclaration XML strings from the given input array.
     """
@@ -66,6 +66,12 @@ def generate_variable_declarations_from_array(start_id, name_input_array, questi
             constant_name, constant_value = exercise_constant
             xml_output, current_id = format_single_input_to_xml(constant_name, constant_value, current_id)
             declarations.append(xml_output)
+            
+    if solution_constants is not None:
+        for solution_constant in solution_constants:
+            constant_name, constant_value = solution_constant
+            xml_output, current_id = format_single_input_to_xml(constant_name, constant_value, current_id)
+            declarations.append(xml_output)
     
     return declarations
 
@@ -89,7 +95,7 @@ def fix_ids_in_xml_tree(root, start_id):
                 elem.attrib['id'] = str(max_id + 1)
                 max_id += 1
 
-def process_xml(xml_path, name_input_array, question_number, question_amount, exercise_constants: list[str, str]|None=None):
+def process_xml(xml_path, name_input_array, question_number, question_amount, exercise_constants: list[str, str]|None=None, solution_constants: list[str, str]|None=None):
     """
     Processes the XML file at `xml_path` by applying the transformations.
     """
@@ -99,7 +105,7 @@ def process_xml(xml_path, name_input_array, question_number, question_amount, ex
     variable_declarations = root.find('.//variableDeclarations')
     current_id = int(variable_declarations.attrib['id'])
 
-    new_declarations = generate_variable_declarations_from_array(current_id, name_input_array, question_number, question_amount, exercise_constants)
+    new_declarations = generate_variable_declarations_from_array(current_id, name_input_array, question_number, question_amount, exercise_constants, solution_constants)
 
     append_declarations_to_xml(root, variable_declarations, new_declarations)
 
@@ -152,7 +158,7 @@ def clear_variable_declarations(folder_path):
     else:
         raise ValueError("<variableDeclarations> tag not found in the XML file.")
 
-def format_to_xml(folder_path, name_input_array, question_number, question_amount, exercise_constants: list[str, str]|None=None):
+def format_to_xml(folder_path, name_input_array, question_number, question_amount, exercise_constants: list[str, str]|None=None, solution_constants: list[str, str]|None=None):
     """
     Processes the XML file in a specified folder and appends variable declarations in a Jack3-compatible format.
 
@@ -173,6 +179,9 @@ def format_to_xml(folder_path, name_input_array, question_number, question_amoun
     - exercise_constants (list[str, str] | None): A list of tuples `(constant_name, constant_value)` representing:
         - constant_name: The label of the constant to be added exercise-wide. This constant applies to the entire exercise.
         - constant_value: Value of the constant. Can also be an equation.
+    - solution_constants (list[str, str] | None): A list of tuples `(constant_name, constant_value)` representing:
+        - constant_name: The label of the constant to be added solution-wide. This constant applies to the entire solution.
+        - constant_value: Value of the constant. Can also be an equation.
 
     Returns:
     None
@@ -180,4 +189,4 @@ def format_to_xml(folder_path, name_input_array, question_number, question_amoun
 
     xml_path = find_xml_path(folder_path)
 
-    process_xml(xml_path, name_input_array, question_number, question_amount, exercise_constants)
+    process_xml(xml_path, name_input_array, question_number, question_amount, exercise_constants, solution_constants)
