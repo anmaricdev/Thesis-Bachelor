@@ -2542,7 +2542,7 @@
 </VariableDeclaration><VariableDeclaration id="236">
   <name>bin_capacities_question_1</name>
   <initializationCode id="237">
-    <code>list(&apos;[7, 7, 11]&apos;, &apos;[13, 11, 13, 14]&apos;, &apos;[13, 13, 10, 14]&apos;, &apos;[10, 11, 6, 6, 6]&apos;, &apos;[10, 12, 13]&apos;, &apos;[12, 13, 10, 13, 7]&apos;, &apos;[10, 7, 9]&apos;, &apos;[13, 10, 10]&apos;, &apos;[11, 10, 8]&apos;, &apos;[12, 8, 7]&apos;)</code>
+    <code>list(&apos;[12, 11, 13]&apos;, &apos;[10, 10, 11]&apos;, &apos;[12, 7, 13, 11]&apos;, &apos;[12, 8, 8, 9, 8]&apos;, &apos;[13, 8, 12, 7]&apos;, &apos;[6, 8, 7, 13]&apos;, &apos;[9, 12, 12, 11]&apos;, &apos;[11, 9, 8]&apos;, &apos;[9, 11, 13, 7]&apos;, &apos;[8, 14, 14]&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="238">
@@ -2554,7 +2554,7 @@
 </VariableDeclaration><VariableDeclaration id="240">
   <name>items_question_1</name>
   <initializationCode id="241">
-    <code>list(&apos;[5, 6, 6]&apos;, &apos;[5, 8, 4]&apos;, &apos;[2, 3, 3]&apos;, &apos;[7, 8]&apos;, &apos;[2, 7, 4]&apos;, &apos;[2, 5, 3]&apos;, &apos;[4, 4, 2, 5]&apos;, &apos;[4, 3, 5]&apos;, &apos;[3, 7]&apos;, &apos;[7, 3, 8, 5, 4]&apos;)</code>
+    <code>list(&apos;[8, 2]&apos;, &apos;[7, 5, 4, 8, 3]&apos;, &apos;[3, 3, 2, 3, 6]&apos;, &apos;[3, 2, 7, 3, 7]&apos;, &apos;[2, 3, 6, 8, 4]&apos;, &apos;[6, 2, 5]&apos;, &apos;[7, 4, 2, 8]&apos;, &apos;[8, 3, 3]&apos;, &apos;[4, 3]&apos;, &apos;[8, 3, 7, 5, 3]&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="242">
@@ -2566,7 +2566,7 @@
 </VariableDeclaration><VariableDeclaration id="244">
   <name>next_items_question_1</name>
   <initializationCode id="245">
-    <code>list(&apos;5&apos;, &apos;2&apos;, &apos;2&apos;, &apos;6&apos;, &apos;3&apos;, &apos;2&apos;, &apos;6&apos;, &apos;2&apos;, &apos;2&apos;, &apos;4&apos;)</code>
+    <code>list(&apos;6&apos;, &apos;3&apos;, &apos;6&apos;, &apos;6&apos;, &apos;6&apos;, &apos;5&apos;, &apos;6&apos;, &apos;2&apos;, &apos;4&apos;, &apos;3&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="246">
@@ -2578,7 +2578,7 @@
 </VariableDeclaration><VariableDeclaration id="248">
   <name>target_bins_question_1</name>
   <initializationCode id="249">
-    <code>list(&apos;3&apos;, &apos;2&apos;, &apos;3&apos;, &apos;3&apos;, &apos;2&apos;, &apos;5&apos;, &apos;1&apos;, &apos;2&apos;, &apos;2&apos;, &apos;0&apos;)</code>
+    <code>list(&apos;1&apos;, &apos;3&apos;, &apos;4&apos;, &apos;4&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;2&apos;, &apos;4&apos;, &apos;3&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="250">
@@ -2590,7 +2590,7 @@
 </VariableDeclaration><VariableDeclaration id="252">
   <name>target_bins_regexes_question_1</name>
   <initializationCode id="253">
-    <code>list(&apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*5\s*\]*&apos;, &apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*0\s*\]*&apos;)</code>
+    <code>list(&apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="254">
@@ -2620,7 +2620,7 @@
 </VariableDeclaration><VariableDeclaration id="262">
   <name>bin_capacities_question_2</name>
   <initializationCode id="263">
-    <code>list(&apos;[12, 12, 13, 9]&apos;, &apos;[14, 6, 13, 9, 8]&apos;, &apos;[14, 13, 14, 14, 9]&apos;, &apos;[6, 7, 7]&apos;, &apos;[8, 13, 8]&apos;, &apos;[9, 10, 13]&apos;, &apos;[9, 10, 13, 8, 14]&apos;, &apos;[14, 9, 6, 8, 12]&apos;, &apos;[7, 8, 11, 6, 11]&apos;, &apos;[12, 7, 12]&apos;)</code>
+    <code>list(&apos;[9, 13, 8, 6, 7]&apos;, &apos;[14, 12, 14]&apos;, &apos;[7, 13, 8, 11]&apos;, &apos;[11, 11, 10, 10]&apos;, &apos;[10, 7, 6]&apos;, &apos;[12, 8, 11, 12]&apos;, &apos;[8, 7, 8]&apos;, &apos;[12, 10, 7, 12]&apos;, &apos;[9, 8, 10, 9, 12]&apos;, &apos;[14, 13, 12]&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="264">
@@ -2632,7 +2632,7 @@
 </VariableDeclaration><VariableDeclaration id="266">
   <name>items_question_2</name>
   <initializationCode id="267">
-    <code>list(&apos;[7, 5, 8, 8, 7]&apos;, &apos;[2, 2, 8, 8, 3]&apos;, &apos;[2, 8, 6, 2, 2]&apos;, &apos;[4, 3, 7]&apos;, &apos;[8, 7, 5]&apos;, &apos;[4, 2, 4]&apos;, &apos;[5, 3, 7, 3, 5]&apos;, &apos;[3, 5, 5, 7]&apos;, &apos;[4, 4, 2, 2]&apos;, &apos;[8, 7, 3, 8]&apos;)</code>
+    <code>list(&apos;[5, 5, 4, 4, 8]&apos;, &apos;[2, 5, 4]&apos;, &apos;[8, 8]&apos;, &apos;[3, 4, 4, 3, 6]&apos;, &apos;[5, 6, 4, 8]&apos;, &apos;[5, 2, 3, 8, 7]&apos;, &apos;[4, 4, 5, 7]&apos;, &apos;[3, 4]&apos;, &apos;[4, 5, 3, 2]&apos;, &apos;[6, 6]&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="268">
@@ -2644,7 +2644,7 @@
 </VariableDeclaration><VariableDeclaration id="270">
   <name>next_items_question_2</name>
   <initializationCode id="271">
-    <code>list(&apos;2&apos;, &apos;2&apos;, &apos;6&apos;, &apos;3&apos;, &apos;6&apos;, &apos;5&apos;, &apos;5&apos;, &apos;4&apos;, &apos;2&apos;, &apos;3&apos;)</code>
+    <code>list(&apos;6&apos;, &apos;2&apos;, &apos;5&apos;, &apos;3&apos;, &apos;6&apos;, &apos;4&apos;, &apos;2&apos;, &apos;4&apos;, &apos;6&apos;, &apos;3&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="272">
@@ -2656,7 +2656,7 @@
 </VariableDeclaration><VariableDeclaration id="274">
   <name>target_bins_question_2</name>
   <initializationCode id="275">
-    <code>list(&apos;2&apos;, &apos;1&apos;, &apos;2&apos;, &apos;2&apos;, &apos;3&apos;, &apos;2&apos;, &apos;3&apos;, &apos;3&apos;, &apos;2&apos;, &apos;3&apos;)</code>
+    <code>list(&apos;4&apos;, &apos;1&apos;, &apos;1&apos;, &apos;3&apos;, &apos;3&apos;, &apos;3&apos;, &apos;2&apos;, &apos;1&apos;, &apos;3&apos;, &apos;2&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="276">
@@ -2668,7 +2668,7 @@
 </VariableDeclaration><VariableDeclaration id="278">
   <name>target_bins_regexes_question_2</name>
   <initializationCode id="279">
-    <code>list(&apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;)</code>
+    <code>list(&apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="280">
@@ -2692,7 +2692,7 @@
 </VariableDeclaration><VariableDeclaration id="286">
   <name>bin_capacities_question_3</name>
   <initializationCode id="287">
-    <code>list(&apos;[8, 7, 12, 8]&apos;, &apos;[13, 13, 8, 13, 14]&apos;, &apos;[8, 10, 10, 6, 11]&apos;, &apos;[6, 13, 7, 13, 14]&apos;, &apos;[11, 8, 10, 8, 8]&apos;, &apos;[9, 12, 10, 13, 14]&apos;, &apos;[9, 10, 9, 10]&apos;, &apos;[9, 8, 12, 11, 9]&apos;, &apos;[10, 8, 7]&apos;, &apos;[12, 14, 14]&apos;)</code>
+    <code>list(&apos;[13, 7, 9]&apos;, &apos;[13, 11, 7, 10, 12]&apos;, &apos;[13, 6, 11, 14, 8]&apos;, &apos;[12, 13, 9, 6, 12]&apos;, &apos;[6, 9, 9, 12, 8]&apos;, &apos;[11, 14, 6, 7]&apos;, &apos;[8, 6, 13]&apos;, &apos;[12, 14, 14, 14]&apos;, &apos;[12, 10, 9]&apos;, &apos;[14, 11, 11, 7, 7]&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="288">
@@ -2704,7 +2704,7 @@
 </VariableDeclaration><VariableDeclaration id="290">
   <name>items_question_3</name>
   <initializationCode id="291">
-    <code>list(&apos;[8, 4, 3, 3]&apos;, &apos;[2, 8, 2, 2]&apos;, &apos;[5, 7, 6]&apos;, &apos;[7, 4, 3, 3, 7]&apos;, &apos;[6, 5, 4, 7]&apos;, &apos;[5, 6, 6, 5, 3]&apos;, &apos;[7, 6]&apos;, &apos;[8, 8, 5, 6, 6]&apos;, &apos;[6, 6, 7]&apos;, &apos;[7, 3, 4]&apos;)</code>
+    <code>list(&apos;[7, 2, 6]&apos;, &apos;[5, 7, 3]&apos;, &apos;[6, 4, 7, 4]&apos;, &apos;[7, 4, 8]&apos;, &apos;[6, 2, 2]&apos;, &apos;[6, 6, 4, 2]&apos;, &apos;[2, 5]&apos;, &apos;[3, 3]&apos;, &apos;[4, 8, 7, 8]&apos;, &apos;[8, 5]&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="292">
@@ -2716,7 +2716,7 @@
 </VariableDeclaration><VariableDeclaration id="294">
   <name>next_items_question_3</name>
   <initializationCode id="295">
-    <code>list(&apos;3&apos;, &apos;3&apos;, &apos;5&apos;, &apos;5&apos;, &apos;4&apos;, &apos;2&apos;, &apos;4&apos;, &apos;3&apos;, &apos;6&apos;, &apos;4&apos;)</code>
+    <code>list(&apos;2&apos;, &apos;6&apos;, &apos;6&apos;, &apos;5&apos;, &apos;4&apos;, &apos;6&apos;, &apos;2&apos;, &apos;6&apos;, &apos;2&apos;, &apos;6&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="296">
@@ -2728,7 +2728,7 @@
 </VariableDeclaration><VariableDeclaration id="298">
   <name>target_bins_question_3</name>
   <initializationCode id="299">
-    <code>list(&apos;3&apos;, &apos;2&apos;, &apos;4&apos;, &apos;4&apos;, &apos;4&apos;, &apos;3&apos;, &apos;2&apos;, &apos;4&apos;, &apos;0&apos;, &apos;2&apos;)</code>
+    <code>list(&apos;3&apos;, &apos;2&apos;, &apos;4&apos;, &apos;2&apos;, &apos;2&apos;, &apos;3&apos;, &apos;2&apos;, &apos;1&apos;, &apos;0&apos;, &apos;2&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="300">
@@ -2740,7 +2740,7 @@
 </VariableDeclaration><VariableDeclaration id="302">
   <name>target_bins_regexes_question_3</name>
   <initializationCode id="303">
-    <code>list(&apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*0\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;)</code>
+    <code>list(&apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*0\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="304">
@@ -2764,7 +2764,7 @@
 </VariableDeclaration><VariableDeclaration id="310">
   <name>bin_capacities_question_4</name>
   <initializationCode id="311">
-    <code>list(&apos;[7, 14, 14, 9, 10]&apos;, &apos;[6, 13, 7]&apos;, &apos;[13, 11, 12]&apos;, &apos;[7, 11, 8]&apos;, &apos;[11, 8, 6, 10]&apos;, &apos;[12, 7, 13, 12]&apos;, &apos;[7, 10, 13, 7]&apos;, &apos;[9, 6, 9, 10]&apos;, &apos;[7, 14, 9, 11]&apos;, &apos;[10, 11, 6, 12, 13]&apos;)</code>
+    <code>list(&apos;[8, 6, 8, 13, 8]&apos;, &apos;[12, 14, 7, 14, 11]&apos;, &apos;[9, 13, 14, 7, 7]&apos;, &apos;[13, 7, 12, 11, 12]&apos;, &apos;[7, 14, 11]&apos;, &apos;[13, 6, 9, 7]&apos;, &apos;[13, 13, 11, 6, 11]&apos;, &apos;[12, 8, 12]&apos;, &apos;[14, 10, 6, 7, 10]&apos;, &apos;[10, 10, 12, 9]&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="312">
@@ -2776,7 +2776,7 @@
 </VariableDeclaration><VariableDeclaration id="314">
   <name>items_question_4</name>
   <initializationCode id="315">
-    <code>list(&apos;[3, 5, 5]&apos;, &apos;[3, 5, 3]&apos;, &apos;[4, 3, 8, 5]&apos;, &apos;[3, 6]&apos;, &apos;[2, 7, 3]&apos;, &apos;[5, 2, 2, 7]&apos;, &apos;[3, 5, 5, 5]&apos;, &apos;[5, 2, 8, 8]&apos;, &apos;[8, 6]&apos;, &apos;[8, 8, 2, 5]&apos;)</code>
+    <code>list(&apos;[4, 6, 2, 3]&apos;, &apos;[6, 5, 3, 3]&apos;, &apos;[6, 8, 5]&apos;, &apos;[3, 8, 6, 6]&apos;, &apos;[7, 5]&apos;, &apos;[8, 2, 8, 6]&apos;, &apos;[3, 7, 6]&apos;, &apos;[5, 8, 4, 7, 7]&apos;, &apos;[5, 7, 8]&apos;, &apos;[7, 7, 3]&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="316">
@@ -2788,7 +2788,7 @@
 </VariableDeclaration><VariableDeclaration id="318">
   <name>next_items_question_4</name>
   <initializationCode id="319">
-    <code>list(&apos;2&apos;, &apos;5&apos;, &apos;5&apos;, &apos;6&apos;, &apos;4&apos;, &apos;2&apos;, &apos;3&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;)</code>
+    <code>list(&apos;6&apos;, &apos;2&apos;, &apos;4&apos;, &apos;2&apos;, &apos;5&apos;, &apos;2&apos;, &apos;6&apos;, &apos;4&apos;, &apos;5&apos;, &apos;5&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="320">
@@ -2800,7 +2800,7 @@
 </VariableDeclaration><VariableDeclaration id="322">
   <name>target_bins_question_4</name>
   <initializationCode id="323">
-    <code>list(&apos;5&apos;, &apos;2&apos;, &apos;3&apos;, &apos;3&apos;, &apos;2&apos;, &apos;4&apos;, &apos;4&apos;, &apos;1&apos;, &apos;3&apos;, &apos;2&apos;)</code>
+    <code>list(&apos;5&apos;, &apos;1&apos;, &apos;3&apos;, &apos;1&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;, &apos;2&apos;, &apos;1&apos;, &apos;4&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="324">
@@ -2812,7 +2812,7 @@
 </VariableDeclaration><VariableDeclaration id="326">
   <name>target_bins_regexes_question_4</name>
   <initializationCode id="327">
-    <code>list(&apos;\[*\s*5\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;)</code>
+    <code>list(&apos;\[*\s*5\s*\]*&apos;, &apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*3\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;, &apos;\[*\s*5\s*\]*&apos;, &apos;\[*\s*2\s*\]*&apos;, &apos;\[*\s*1\s*\]*&apos;, &apos;\[*\s*4\s*\]*&apos;)</code>
     <domain>MATH</domain>
   </initializationCode>
 </VariableDeclaration><VariableDeclaration id="328">

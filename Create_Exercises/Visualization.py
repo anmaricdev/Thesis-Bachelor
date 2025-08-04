@@ -3,6 +3,12 @@ import matplotlib as mpl
 import math
 import numpy as np
 import os
+from BinPackingAlgorithms import (
+    bin_packing_best_fit_var_capa,
+    bin_packing_first_fit_var_capa,
+    bin_packing_next_fit_var_capa,
+    bin_packing_worst_fit_var_capa
+)
 from configuration_Matplotlib import *
 from Class_Items import create_items_bulk
 from BinPackingAlgorithms import bin_packing_best_fit_var_capa, bin_packing_first_fit_var_capa, bin_packing_next_fit_var_capa, bin_packing_worst_fit_var_capa
@@ -285,8 +291,81 @@ def visualize_bin_packing(
         ax.text(0.02, 0.5, overview_text, ha="left", va="center", fontsize=18, transform=ax.transAxes)
     # Show items list if requested
     if show_items_list:
-        items_text = f"Items to pack:\n [{', '.join(map(str, items))}]"
-        ax.text(0.2, 0.5, items_text, ha="center", va="center", fontsize=14, transform=ax.transAxes, color='black')
+        # Create color-coded items list that matches the bin colors
+        # Track which items have been used and their colors
+        used_items = []
+        for bin_items in used_bins:
+            for item in bin_items:
+                used_items.append(item)
+        
+        # Build the items text with bin hints for duplicates
+        items_text_parts = []
+        items_text_parts.append("Items to pack:\n [")
+        
+        # Track placement of each item from the original list by simulating step by step
+        # We need to run the algorithm progressively to track where each item goes
+        placement_order = []  # Will store (item_size, bin_number) tuples in placement order
+        
+        # Create item objects for simulation
+        items_obj_sim = create_items_bulk(*items)
+        
+        # Run the algorithm progressively to track placement order
+        for i in range(1, len(items) + 1):
+            # Run algorithm with first i items
+            current_items = items_obj_sim[:i]
+            
+            if approach == "BEST":
+                is_possible_sim, used_bins_sim, bins_packed_after_failure_sim = bin_packing_best_fit_var_capa(capacities.copy(), current_items)
+            elif approach == "FIRST":
+                is_possible_sim, used_bins_sim, bins_packed_after_failure_sim = bin_packing_first_fit_var_capa(capacities.copy(), current_items)
+            elif approach == "NEXT":
+                is_possible_sim, used_bins_sim, bins_packed_after_failure_sim = bin_packing_next_fit_var_capa(capacities.copy(), current_items)
+            elif approach == "WORST":
+                is_possible_sim, used_bins_sim, bins_packed_after_failure_sim = bin_packing_worst_fit_var_capa(capacities.copy(), current_items)
+            
+            # Find which bin the i-th item was placed in
+            current_item = items_obj_sim[i-1]
+            item_placed = False
+            
+            for bin_idx, bin_items in enumerate(used_bins_sim):
+                if current_item in bin_items:
+                    placement_order.append((current_item.size, bin_idx + 1))
+                    item_placed = True
+                    break
+            
+            if not item_placed:
+                # Item couldn't be placed (leftover)
+                placement_order.append((current_item.size, None))
+        
+        # Now build the annotated list based on the original items order
+        for i, item in enumerate(items):
+            # Find the placement for this item
+            item_size, bin_number = placement_order[i]
+            
+            # Add the item with bin hint if it's a duplicate
+            if bin_number:
+                # Check if this item appears multiple times
+                item_count = items.count(item)
+                if item_count > 1:
+                    items_text_parts.append(f"{item} (bin{bin_number})")
+                else:
+                    items_text_parts.append(str(item))
+            else:
+                items_text_parts.append(str(item))
+            
+            # Add comma separator (except for last item)
+            if i < len(items) - 1:
+                items_text_parts.append(", ")
+        
+        items_text_parts.append("]")
+        items_text = "".join(items_text_parts)
+        
+        # Draw the items list as a single centered text element
+        ax.text(0.2, 0.5, items_text, ha="center", va="center", fontsize=10, transform=ax.transAxes, color='black')
+    
+    # Store show_placement_order option in figure for access in _draw_bin
+    show_placement_order = visualization_options.get("show_placement_order", False)
+    fig.show_placement_order = show_placement_order
     # Place bins vertically
     x = text_width
     y = total_height - top_padding - bin_height - text_height
@@ -339,6 +418,9 @@ def _draw_bin(ax, x, y, width, height, capacity, items, label, hide_used_info):
         total_size = sum(item.size for item in items)
         curr_x = x
         after_failure_drawn = False
+        
+
+        
         for idx, item in enumerate(items):
             item_width = width * (item.size / capacity)
             # Draw separation line and label if this is the first 'after failure' item
@@ -350,7 +432,10 @@ def _draw_bin(ax, x, y, width, height, capacity, items, label, hide_used_info):
                 # Draw label above the line
                 ax.text(sep_x + 0.05, y + height + margin + 0.02, "after failure", ha="left", va="bottom", fontsize=10, color="red", zorder=21)
                 after_failure_drawn = True
+            
+            # Draw the item rectangle
             ax.add_patch(plt.Rectangle((curr_x, y), item_width, height, color=item._color, ec='black', linewidth=1))
+            
             curr_x += item_width
     # Draw label and capacity info
     if label == "Leftover":
