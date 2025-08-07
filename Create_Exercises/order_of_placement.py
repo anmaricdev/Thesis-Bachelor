@@ -1,5 +1,5 @@
-# Exercise: Order of Placement
-# This script creates exercises where the user has to specify the order in which items are placed into bins using the Bin packing algorithms.
+# Exercise 2: Order of Placement
+# This script creates exercises where the user has to specify the order in which items are placed into bins using the various Bin packing algorithms.
 
 import random
 from formatter_for_copy_paste_export_to_jack3 import *
