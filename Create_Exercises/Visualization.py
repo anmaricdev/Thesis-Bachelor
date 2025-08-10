@@ -227,6 +227,7 @@ def visualize_bin_packing(
     show_items_list = visualization_options.get("show_items_list", False)
     hide_bin_filling = visualization_options.get("hide_bin_filling", False)
     hide_used_info = visualization_options.get("hide_used_info", False)
+    hide_failure = visualization_options.get("hide_failure", False)
     # Only support single algorithm for tight cropping
     if algorithms:
         approach = algorithms[0]
@@ -385,7 +386,7 @@ def visualize_bin_packing(
                         items_to_show, "Leftover", hide_used_info)
         bin_rects.append(rect)
     # Draw red cross if not successful
-    if not is_possible and bin_rects and not hide_leftover:
+    if not is_possible and bin_rects and not hide_leftover and not hide_failure:
         min_x = min([r[0] for r in bin_rects])
         max_x = max([r[0] + r[2] for r in bin_rects])
         min_y = min([r[1] for r in bin_rects])
