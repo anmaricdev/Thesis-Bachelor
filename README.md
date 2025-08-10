@@ -115,8 +115,7 @@ This project is part of academic research. Please respect academic integrity and
 
 - **Student**: Ante Maric
 - **Institution**: Frankfurt University of Applied Sciences
-- **Email**: [Your Email]
-- **LinkedIn**: [Your LinkedIn]
+- **LinkedIn**: [[Let's connect on LinkedIn]](https://de.linkedin.com/in/ante-maric-6453a8252)
 
 ---
 
