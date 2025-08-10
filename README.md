@@ -74,7 +74,7 @@ Thesis-Bachelor/
 
 ### **Institution**
 - **University**: Frankfurt University of Applied Sciences (Frankfurt UAS)
-- **Program**: Bachelor's Degree in Computer Science
+- **Program**: Bachelor's Degree in Computer Science (B.Sc.)
 - **Thesis Title**: "Entwicklung von Lernmodulen zu Bin-Packing-Algorithmen in einer interaktiven Lernplattform"
 - **Language**: German
 - **Completion Date**: [Expected: 28.08.2025]
