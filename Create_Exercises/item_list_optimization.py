@@ -193,8 +193,6 @@ def item_list_optimization_exercise(question_number, num_calls, algorithm):
         fig_exercise.savefig(exercise_image_path, format='png', bbox_inches='tight', pad_inches=0, dpi=150)
         plt.close(fig_exercise)
 
-
-
         arrays.append(shuffled_items)
         bin_capacities_list.append(shuffled_bin_capacities)
         optimal_orderings.append(shuffled_optimal_ordering)
