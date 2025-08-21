@@ -119,8 +119,4 @@ This project is part of academic research. Please respect academic integrity and
 
 ---
 
-⭐ **Star this repository** if you find the research interesting or useful for your own academic work!
-
----
-
 *This README represents ongoing research. Final results and conclusions will be available upon thesis completion in Summer 2025.*
