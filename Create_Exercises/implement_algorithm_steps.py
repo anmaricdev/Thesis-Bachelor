@@ -47,7 +47,7 @@ def step_by_step_simulation_exercise(question_number, num_calls, algorithm):
         random.shuffle(items)
         random.shuffle(bin_capacities)
 
-        # Simulate the algorithm step by step using professor's algorithms
+        # Simulate the algorithm step by step using the Bin Packing algorithms
         step_states_for_variant = []
         
         # Simulate each step by running the algorithm with progressively more items

@@ -273,6 +273,7 @@ def algorithm_performance_prediction_exercise(question_number, num_calls):
                 # Store results for all algorithms (for detailed feedback) - use shuffled results
                 all_results.append(actual_results_after_shuffle)
                 
+                # Helpful debugging information
                 print(f"  SUCCESS: Variant {successful_variant_count} - {target_algorithm} algorithm (index {solution})")
                 print(f"    Items: {shuffled_items}")
                 print(f"    Bin capacities: {shuffled_bin_capacities}")
